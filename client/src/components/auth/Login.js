@@ -1,14 +1,28 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState,useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
+import { logout } from '../../actions/auth';
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, logout,isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
+  useEffect(() => {
+    
+    if (isAuthenticated) {  
+       
+       const timer = setTimeout(() => {
+          // Redirect to another page
+          
+    logout();
+       }, 60*1000);
+       
+    }
+    
+  })
 
   const { email, password } = formData;
 
@@ -62,6 +76,7 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool
 };
 
@@ -69,4 +84,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login,logout })(Login);
