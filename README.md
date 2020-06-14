@@ -1,5 +1,9 @@
 
-  
+  Implemented Functionality:
+  *signin
+  *signup
+  *logout after 60 seconds
+  *list users in dashboard
 
 ---
 
